@@ -38,15 +38,16 @@ namespace ModbusTestTool
             try
             {
                 ModbusResponse = await Task.Run(() =>
-                ModbusDevice.WriteAsync(ModbusRegister, ModbusValue, ModbusFunct));
+                ModbusDevice.WriteAsync(ModbusRegister, ModbusValue,
+                ModbusFunct));
 
                 Response.Text = BitConverter.ToString(ModbusResponse);
             }
             catch (Exception ex)
             {
                 Response.Text = ex.Message;
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+                MessageBox.Show(ex.HResult + ": " + ex.Message, "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

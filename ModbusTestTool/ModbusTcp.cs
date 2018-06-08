@@ -55,7 +55,8 @@ namespace Modbus
         /// <param name="register"></param>
         /// <param name="value"></param>
         /// <param name="modbusFunct"></param>
-        public async Task<byte[]> WriteAsync(uint register, int value, int modbusFunct)
+        public async Task<byte[]> WriteAsync(uint register, int value,
+            int modbusFunct)
         {
             ///////////////////////////////////////////////////////////////////
             //DecVar
@@ -69,7 +70,8 @@ namespace Modbus
             ///////////////////////////////////////////////////////////////////
             Byte[] data = { 0x00, transactionID, 0x00, 0x00, 0x00, 0x09,
                 Convert.ToByte(UnitID), Convert.ToByte(modbusFunct),
-                registerAddr[1], registerAddr[0], 0x00, 0x01, 0x02, sendValue[1], sendValue[0] };
+                registerAddr[1], registerAddr[0], 0x00, 0x01, 0x02,
+                sendValue[1], sendValue[0] };
 
             NetworkStream stream = client.GetStream();
             stream.Write(data, 0, data.Length);
