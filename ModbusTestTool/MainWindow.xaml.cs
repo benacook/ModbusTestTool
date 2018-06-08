@@ -48,25 +48,26 @@ namespace ModbusTestTool
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            //try
-            //{
-            //    int ModbusRegister = Convert.ToInt16(Register.Text);
-            //    int ModbusValue = Convert.ToInt16(Value.Text);
-            //    int ModbusFunct = Convert.ToInt16(Function.Text);
-            //    ModbusTcp ModbusDevice = new ModbusTcp(502, IpAddr.Text);
+            try
+            {
+                int ModbusRegister = Convert.ToInt16(Register.Text);
+                int ModbusValue = Convert.ToInt16(Value.Text);
+                int ModbusFunct = Convert.ToInt16(Function.Text);
+                //ModbusTcp ModbusDevice = new ModbusTcp(502, IpAddr.Text);
 
-            // ModbusResponse = await Task.Run(() => ModbusDevice.WriteAsync(ModbusRegister,
-            // ModbusValue, ModbusFunct));
+                ModbusResponse = await Task.Run(() =>
+                ModbusDevice.WriteAsync(ModbusRegister,
+                ModbusValue, ModbusFunct));
 
-            //    Response.Text = BitConverter.ToString(ModbusResponse);
-            //}
-            //catch (Exception ex)
-            //{
-            //    Response.Text = ex.Message;
-            //    MessageBox.Show("0x" + ex.HResult.ToString("X") + ": " +
-            //        ex.Message, "Error", MessageBoxButton.OK,
-            //        MessageBoxImage.Error);
-            //}
+                Response.Text = BitConverter.ToString(ModbusResponse);
+            }
+            catch (Exception ex)
+            {
+                Response.Text = ex.Message;
+                MessageBox.Show("0x" + ex.HResult.ToString("X") + ": " +
+                    ex.Message, "Error", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)

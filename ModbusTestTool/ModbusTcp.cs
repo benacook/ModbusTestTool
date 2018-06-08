@@ -48,6 +48,16 @@ namespace Modbus
             client = new TcpClient(IpAddr, 502);
         }
 
+        ~ModbusTcp()
+        {
+            try
+            {
+                client.GetStream().Close();
+                client.Close();
+            }
+            catch { }
+        }
+
         ///////////////////////////////////////////////////////////////////////
         //Write to Modbus
         ///////////////////////////////////////////////////////////////////////
