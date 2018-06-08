@@ -18,6 +18,7 @@ namespace Modbus
         public int UnitID { get; set; }
         public byte[] ReadResponse = new byte[16];
         public static byte transactionID = 0x00;
+        public TcpClient client;
 
         /// <summary>
         /// Creates an object for Modbus TCP communication.
@@ -29,6 +30,7 @@ namespace Modbus
             Port = port;
             IpAddr = ipAddr;
             UnitID = 1;
+            client = new TcpClient(IpAddr, 502);
         }
 
         /// <summary>
@@ -43,6 +45,7 @@ namespace Modbus
             Port = port;
             IpAddr = ipAddr;
             UnitID = unitID;
+            client = new TcpClient(IpAddr, 502);
         }
 
         ///////////////////////////////////////////////////////////////////////
@@ -55,7 +58,7 @@ namespace Modbus
         /// <param name="register"></param>
         /// <param name="value"></param>
         /// <param name="modbusFunct"></param>
-        public async Task<byte[]> WriteAsync(uint register, int value,
+        public async Task<byte[]> WriteAsync(int register, int value,
             int modbusFunct)
         {
             ///////////////////////////////////////////////////////////////////
@@ -63,7 +66,6 @@ namespace Modbus
             ///////////////////////////////////////////////////////////////////
             byte[] registerAddr = BitConverter.GetBytes(register);
             byte[] sendValue = BitConverter.GetBytes(value);
-            TcpClient client = new TcpClient(IpAddr, Port);
 
             ///////////////////////////////////////////////////////////////////
             //Construct data and send
@@ -83,7 +85,7 @@ namespace Modbus
             ///////////////////////////////////////////////////////////////////
             byte[] response = new byte[32];
             int bytes = await stream.ReadAsync(response, 0, response.Length);
-            stream.Close(100);
+            //stream.Close(100);
             return response;
         }
 
