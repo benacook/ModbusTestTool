@@ -18,7 +18,17 @@ namespace ModbusTestTool
 
         public MainWindow()
         {
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Fatal Error: " +
+                    ex.ToString(), "Error", MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                this.Close();
+            }
         }
 
         private async void OnTimerTickAsync(object sender, EventArgs e)
