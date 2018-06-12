@@ -95,7 +95,7 @@ namespace Modbus
             ///////////////////////////////////////////////////////////////////
             byte[] response = new byte[32];
             int bytes = await stream.ReadAsync(response, 0, response.Length);
-            //stream.Close(100);
+            stream.Close(100);
             return response;
         }
 

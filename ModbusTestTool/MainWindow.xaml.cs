@@ -13,7 +13,6 @@ namespace ModbusTestTool
     {
         private byte[] ModbusResponse { get; set; }
         private DispatcherTimer dt = new DispatcherTimer();
-        private ModbusTcp ModbusDevice = new ModbusTcp(502, "192.168.25.220");
         private int value = 0;
 
         public MainWindow()
@@ -38,6 +37,7 @@ namespace ModbusTestTool
                 int ModbusRegister = Convert.ToInt16(Register.Text);
                 int ModbusValue = value;
                 int ModbusFunct = Convert.ToInt16(Function.Text);
+                ModbusTcp ModbusDevice = new ModbusTcp(502, IpAddr.Text);
 
                 ModbusResponse = await Task.Run(() =>
                 ModbusDevice.WriteAsync(ModbusRegister, ModbusValue,
@@ -63,7 +63,7 @@ namespace ModbusTestTool
                 int ModbusRegister = Convert.ToInt16(Register.Text);
                 int ModbusValue = Convert.ToInt16(Value.Text);
                 int ModbusFunct = Convert.ToInt16(Function.Text);
-                //ModbusTcp ModbusDevice = new ModbusTcp(502, IpAddr.Text);
+                ModbusTcp ModbusDevice = new ModbusTcp(502, IpAddr.Text);
 
                 ModbusResponse = await Task.Run(() =>
                 ModbusDevice.WriteAsync(ModbusRegister,
