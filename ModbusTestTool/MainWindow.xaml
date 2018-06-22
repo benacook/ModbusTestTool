@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Modbus TCP Test Tool" Height="450" Width="768.2">
+        Title="Modbus TCP Test Tool" Height="450" Width="728.2">
     <Grid Background="#FF171C34">
         <Grid.RowDefinitions>
             <RowDefinition Height="105*" />
@@ -14,17 +14,63 @@
             <ColumnDefinition Width="190*" />
             <ColumnDefinition Width="191*" />
         </Grid.ColumnDefinitions>
-        <Label Content="Register" HorizontalAlignment="Left" Margin="261,135,0,0" VerticalAlignment="Top" Foreground="White" />
-        <Label Content="Value" HorizontalAlignment="Left" Margin="21,135,0,0" VerticalAlignment="Top" Foreground="White" />
-        <Label Content="Function" HorizontalAlignment="Left" Margin="121,135,0,0" VerticalAlignment="Top" Foreground="White" Width="88" Grid.Column="1" />
-        <TextBox x:Name="Value" HorizontalAlignment="Left" Height="23" Margin="99,135,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Background="#7FBABABA" Foreground="White" />
-        <TextBox x:Name="Register" HorizontalAlignment="Left" Height="23" Margin="339,135,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Background="#7FBABABA" Foreground="White" Grid.ColumnSpan="2" />
-        <TextBox x:Name="Function" HorizontalAlignment="Left" Height="23" Margin="199,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="#7FBABABA" Foreground="White" Grid.Column="1" />
-        <Label Content="Response" HorizontalAlignment="Left" Margin="38,113,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="1" />
-        <TextBox x:Name="Response" HorizontalAlignment="Left" Height="23" Margin="116,113,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="600" Background="#7FBABABA" Grid.ColumnSpan="2" Grid.Row="1" />
-        <Button x:Name="SendBtn" Content="Send" HorizontalAlignment="Left" Margin="342,198,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click" Grid.ColumnSpan="2" Grid.RowSpan="2" Background="#FF767676" BorderBrush="{x:Null}" Foreground="White" />
-        <Label Content="Ip Adddress" HorizontalAlignment="Left" Margin="261,54,0,0" VerticalAlignment="Top" Foreground="White" />
-        <TextBox x:Name="IpAddr" HorizontalAlignment="Left" Height="23" Margin="339,55,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Background="#7FBABABA" Foreground="White" Grid.ColumnSpan="2" />
-        <CheckBox x:Name="RunCyc" Content="Run Cyclically" HorizontalAlignment="Left" Margin="342,35.4,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="88" Foreground="White" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" />
+        <Label Content="Register" HorizontalAlignment="Left" Margin="334,64,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" />
+        <Label Content="1" HorizontalAlignment="Left" Margin="82,162,0,0" VerticalAlignment="Top" Foreground="White" Width="18" />
+        <Label Content="Function" HorizontalAlignment="Left" Margin="151,27,0,0" VerticalAlignment="Top" Foreground="White" Width="69" Grid.Column="1" />
+        <TextBox x:Name="Value1" HorizontalAlignment="Left" Height="23" Margin="102,162,0,0" TextWrapping="Wrap" Text="{Binding RegisterValues[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" />
+        <TextBox x:Name="Function" Text="{Binding FunctionCode, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="221,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="59" Background="#7FBABABA" Foreground="White" Grid.Column="1" />
+        <Label Content="Response" HorizontalAlignment="Left" Margin="76,162.4,0,0" VerticalAlignment="Top" Foreground="White" Grid.Row="1" Width="64" />
+        <TextBox x:Name="Response" HorizontalAlignment="Left" Height="23" Margin="145,162.4,0,0" TextWrapping="Wrap" Text="{Binding Response}" VerticalAlignment="Top" Width="495" Background="#7FBABABA" Grid.ColumnSpan="2" Grid.Row="1" />
+        <Button x:Name="SendBtn" Command="{Binding Write}" Content="Write" HorizontalAlignment="Left" Margin="242,88.4,0,0" VerticalAlignment="Top" Width="75" Background="#FF767676" BorderBrush="{x:Null}" Foreground="White" Grid.Row="1" />
+        <Label Content="Ip Adddress" HorizontalAlignment="Left" Margin="82,24,0,0" VerticalAlignment="Top" Foreground="White" />
+        <TextBox x:Name="IpAddr" Text="{Binding IpAddr, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="160,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="#7FBABABA" Foreground="White" />
+        <CheckBox x:Name="RunCyc" Content="Write Cyclically" HorizontalAlignment="Left" Margin="242,129.4,0,0" Grid.Row="1" VerticalAlignment="Top" Width="105" Foreground="White" />
+        <Button x:Name="SendBtn_Copy" Command="{Binding Read}" Content="Read" HorizontalAlignment="Left" Margin="42,88.4,0,0" VerticalAlignment="Top" Width="75" Background="#FF767676" BorderBrush="{x:Null}" Foreground="White" Grid.Row="1" Grid.Column="1" />
+        <CheckBox x:Name="RunCyc_Copy" Content="Read Cyclically" HorizontalAlignment="Left" Margin="42,129.4,0,0" Grid.Row="1" VerticalAlignment="Top" Width="105" Foreground="White" Grid.Column="1" />
+        <Label Content="Values" HorizontalAlignment="Left" Margin="338,123,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" />
+        <TextBox x:Name="Value2" HorizontalAlignment="Left" Height="23" Margin="221,162,0,0" TextWrapping="Wrap" Text="{Binding RegisterValues[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" />
+        <Label Content="2" HorizontalAlignment="Left" Margin="202,162,0,0" VerticalAlignment="Top" Foreground="White" Width="18" />
+        <Label Content="3" HorizontalAlignment="Left" Margin="321,162,0,0" VerticalAlignment="Top" Foreground="White" Width="18" />
+        <TextBox x:Name="Value3" HorizontalAlignment="Left" Height="23" Margin="341,162,0,0" TextWrapping="Wrap" Text="{Binding RegisterValues[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" Grid.ColumnSpan="2" />
+        <TextBox x:Name="Value4" HorizontalAlignment="Left" Height="23" Margin="104,162,0,0" TextWrapping="Wrap" Text="{Binding RegisterValues[3], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" Grid.Column="1" />
+        <Label Content="4" HorizontalAlignment="Left" Margin="85,162,0,0" VerticalAlignment="Top" Foreground="White" Width="18" Grid.Column="1" />
+        <Label Content="Start" HorizontalAlignment="Left" Margin="233,89,0,0" VerticalAlignment="Top" Foreground="White" Width="38" />
+        <TextBox x:Name="StartAddr" HorizontalAlignment="Left" Height="23" Margin="273,90,0,0" TextWrapping="Wrap" Text="{Binding StartReg, Mode=TwoWay}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" />
+        <TextBox x:Name="AddrQuantity" HorizontalAlignment="Left" Height="23" Margin="72,90,0,0" TextWrapping="Wrap" Text="{Binding RegQty, Mode=TwoWay}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" Grid.Column="1" />
+        <Label Content="Quantiy" HorizontalAlignment="Left" Margin="18,89,0,0" VerticalAlignment="Top" Foreground="White" Width="53" Grid.Column="1" />
+        <Label Content="Node" HorizontalAlignment="Left" Margin="22,27,0,0" VerticalAlignment="Top" Foreground="White" Grid.Column="1" />
+        <TextBox x:Name="NodeID" HorizontalAlignment="Left" Height="23" Margin="62,27,0,0" TextWrapping="Wrap" Text="{Binding NodeID, Mode=TwoWay}" VerticalAlignment="Top" Width="55" Background="#7FBABABA" Foreground="White" Grid.Column="1" />
+        <TextBox x:Name="Value5" HorizontalAlignment="Left" Height="23" Margin="221,162,0,0" TextWrapping="Wrap" Text="{Binding RegisterValues[4], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" Grid.Column="1" />
+        <Label Content="5" HorizontalAlignment="Left" Margin="202,162,0,0" VerticalAlignment="Top" Foreground="White" Width="18" Grid.Column="1" />
+        <Label Content="6" HorizontalAlignment="Left" Margin="82,187,0,0" VerticalAlignment="Top" Foreground="White" Width="18" Grid.RowSpan="2" />
+        <TextBox x:Name="Value1_Copy" HorizontalAlignment="Left" Height="23" Margin="102,187,0,0" TextWrapping="Wrap" Text="{Binding RegisterValues[5], Mode=TwoWay}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" Grid.RowSpan="2" />
+        <TextBox x:Name="Value2_Copy" HorizontalAlignment="Left" Height="23" Margin="221,187,0,0" TextWrapping="Wrap" Text="{Binding RegisterValues[6], Mode=TwoWay}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" Grid.RowSpan="2" />
+        <Label Content="7" HorizontalAlignment="Left" Margin="202,187,0,0" VerticalAlignment="Top" Foreground="White" Width="18" Grid.RowSpan="2" />
+        <Label Content="8" HorizontalAlignment="Left" Margin="321,187,0,0" VerticalAlignment="Top" Foreground="White" Width="18" Grid.RowSpan="2" />
+        <TextBox x:Name="Value3_Copy" HorizontalAlignment="Left" Height="23" Margin="341,187,0,0" TextWrapping="Wrap" Text="{Binding RegisterValues[7], Mode=TwoWay}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" Grid.ColumnSpan="2" Grid.RowSpan="2" />
+        <TextBox x:Name="Value4_Copy" HorizontalAlignment="Left" Height="23" Margin="104,187,0,0" TextWrapping="Wrap" Text="{Binding RegisterValues[8], Mode=TwoWay}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" Grid.Column="1" Grid.RowSpan="2" />
+        <Label Content="9" HorizontalAlignment="Left" Margin="85,187,0,0" VerticalAlignment="Top" Foreground="White" Width="18" Grid.Column="1" Grid.RowSpan="2" />
+        <TextBox x:Name="Value5_Copy" HorizontalAlignment="Left" Height="23" Margin="221,187,0,0" TextWrapping="Wrap" Text="{Binding RegisterValues[9], Mode=TwoWay}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" Grid.Column="1" Grid.RowSpan="2" />
+        <Label Content="10" HorizontalAlignment="Left" Margin="195,187,0,0" VerticalAlignment="Top" Foreground="White" Width="25" Grid.Column="1" Grid.RowSpan="2" />
+        <Label Content="11" HorizontalAlignment="Left" Margin="76,6.4,0,0" VerticalAlignment="Top" Foreground="White" Width="24" Grid.Row="1" />
+        <TextBox x:Name="Value1_Copy1" HorizontalAlignment="Left" Height="23" Margin="102,6.4,0,0" TextWrapping="Wrap" Text="{Binding RegisterValues[10], Mode=TwoWay}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" Grid.Row="1" />
+        <TextBox x:Name="Value2_Copy1" HorizontalAlignment="Left" Height="23" Margin="221,6.4,0,0" TextWrapping="Wrap" Text="{Binding RegisterValues[11], Mode=TwoWay}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" Grid.Row="1" />
+        <Label Content="12" HorizontalAlignment="Left" Margin="195,6.4,0,0" VerticalAlignment="Top" Foreground="White" Width="25" Grid.Row="1" />
+        <Label Content="13" HorizontalAlignment="Left" Margin="315,6.4,0,0" VerticalAlignment="Top" Foreground="White" Width="24" Grid.Row="1" />
+        <TextBox x:Name="Value3_Copy1" HorizontalAlignment="Left" Height="23" Margin="341,6.4,0,0" TextWrapping="Wrap" Text="{Binding RegisterValues[12], Mode=TwoWay}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" Grid.ColumnSpan="2" Grid.Row="1" />
+        <TextBox x:Name="Value4_Copy1" HorizontalAlignment="Left" Height="23" Margin="104,6.4,0,0" TextWrapping="Wrap" Text="{Binding RegisterValues[13], Mode=TwoWay}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" Grid.Column="1" Grid.Row="1" />
+        <Label Content="14" HorizontalAlignment="Left" Margin="79,6.4,0,0" VerticalAlignment="Top" Foreground="White" Width="24" Grid.Column="1" Grid.Row="1" />
+        <TextBox x:Name="Value5_Copy1" HorizontalAlignment="Left" Height="23" Margin="221,6.4,0,0" TextWrapping="Wrap" Text="{Binding RegisterValues[14], Mode=TwoWay}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" Grid.Column="1" Grid.Row="1" />
+        <Label Content="15" HorizontalAlignment="Left" Margin="195,6.4,0,0" VerticalAlignment="Top" Foreground="White" Width="25" Grid.Column="1" Grid.Row="1" />
+        <Label Content="16" HorizontalAlignment="Left" Margin="76,32.4,0,0" VerticalAlignment="Top" Foreground="White" Width="24" Grid.Row="1" />
+        <TextBox x:Name="Value1_Copy2" HorizontalAlignment="Left" Height="23" Margin="102,32.4,0,0" TextWrapping="Wrap" Text="{Binding RegisterValues[15], Mode=TwoWay}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" Grid.Row="1" />
+        <TextBox x:Name="Value2_Copy2" HorizontalAlignment="Left" Height="23" Margin="221,32.4,0,0" TextWrapping="Wrap" Text="{Binding RegisterValues[16], Mode=TwoWay}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" Grid.Row="1" />
+        <Label Content="17" HorizontalAlignment="Left" Margin="195,32.4,0,0" VerticalAlignment="Top" Foreground="White" Width="25" Grid.Row="1" />
+        <Label Content="18" HorizontalAlignment="Left" Margin="315,32.4,0,0" VerticalAlignment="Top" Foreground="White" Width="24" Grid.Row="1" />
+        <TextBox x:Name="Value3_Copy2" HorizontalAlignment="Left" Height="23" Margin="341,32.4,0,0" TextWrapping="Wrap" Text="{Binding RegisterValues[17], Mode=TwoWay}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" Grid.ColumnSpan="2" Grid.Row="1" />
+        <TextBox x:Name="Value4_Copy2" HorizontalAlignment="Left" Height="23" Margin="104,32.4,0,0" TextWrapping="Wrap" Text="{Binding RegisterValues[18], Mode=TwoWay}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" Grid.Column="1" Grid.Row="1" />
+        <Label Content="19" HorizontalAlignment="Left" Margin="79,32.4,0,0" VerticalAlignment="Top" Foreground="White" Width="24" Grid.Column="1" Grid.Row="1" />
+        <TextBox x:Name="Value5_Copy2" HorizontalAlignment="Left" Height="23" Margin="221,32.4,0,0" TextWrapping="Wrap" Text="{Binding RegisterValues[19], Mode=TwoWay}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" Grid.Column="1" Grid.Row="1" />
+        <Label Content="20" HorizontalAlignment="Left" Margin="195,32.4,0,0" VerticalAlignment="Top" Foreground="White" Width="25" Grid.Column="1" Grid.Row="1" />
     </Grid>
 </Window>
