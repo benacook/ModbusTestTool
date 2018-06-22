@@ -275,7 +275,7 @@ namespace ViewModels
 
         #region Network Commands
 
-        public bool NetworkingCheck()
+        public bool NetworkCheck()
         {
             bool pingOK = false;
             bool subnetOK = false;
@@ -389,45 +389,47 @@ namespace ViewModels
 
         public async Task ModbusWriteAsync()
         {
-            try
-            {
-                ModbusTcp ModbusDevice = new ModbusTcp(502, IpAddr);
+            if (NetworkCheck())
+                try
+                {
+                    ModbusTcp ModbusDevice = new ModbusTcp(502, IpAddr);
 
-                byte[] ModbusResponse = await Task.Run(() =>
-                ModbusDevice.WriteAsync(StartReg, RegQty, RegisterValues,
-                FunctionCode));
+                    byte[] ModbusResponse = await Task.Run(() =>
+                    ModbusDevice.WriteAsync(StartReg, RegQty, RegisterValues,
+                    FunctionCode));
 
-                Response = BitConverter.ToString(ModbusResponse);
-            }
-            catch (Exception ex)
-            {
-                Response = ex.Message;
-                MessageBox.Show("0x" + ex.HResult.ToString("X") + ": " +
-                    ex.Message, "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-            }
+                    Response = BitConverter.ToString(ModbusResponse);
+                }
+                catch (Exception ex)
+                {
+                    Response = ex.Message;
+                    MessageBox.Show("0x" + ex.HResult.ToString("X") + ": " +
+                        ex.Message, "Error", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
         }
 
         public async Task ModbusReadAsync()
         {
-            try
-            {
-                ModbusTcp ModbusDevice = new ModbusTcp(502, IpAddr);
+            if (NetworkCheck())
+                try
+                {
+                    ModbusTcp ModbusDevice = new ModbusTcp(502, IpAddr);
 
-                RegisterValues = await Task.Run(() =>
-                ModbusDevice.ReadAsync(StartReg, RegQty, FunctionCode));
-                int[] RegValInts = new List<int>(RegisterValues).ToArray();
-                byte[] RegValBytes = IntArray.ToByteArray(RegValInts);
+                    RegisterValues = await Task.Run(() =>
+                    ModbusDevice.ReadAsync(StartReg, RegQty, FunctionCode));
+                    int[] RegValInts = new List<int>(RegisterValues).ToArray();
+                    byte[] RegValBytes = IntArray.ToByteArray(RegValInts);
 
-                Response = BitConverter.ToString(RegValBytes);
-            }
-            catch (Exception ex)
-            {
-                Response = ex.Message;
-                MessageBox.Show("0x" + ex.HResult.ToString("X") + ": " +
-                    ex.Message, "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-            }
+                    Response = BitConverter.ToString(RegValBytes);
+                }
+                catch (Exception ex)
+                {
+                    Response = ex.Message;
+                    MessageBox.Show("0x" + ex.HResult.ToString("X") + ": " +
+                        ex.Message, "Error", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
         }
 
         #endregion Modbus Commands

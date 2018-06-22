@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModbusTestTool", "ModbusTestTool\ModbusTestTool.csproj", "{66B385B9-BF67-4334-BFC3-CFD925FA604A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TcpServer", "..\TcpClientServer\TcpServer\TcpServer.csproj", "{DEFEB5FC-97D1-4175-AD06-140BCFAE23AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{66B385B9-BF67-4334-BFC3-CFD925FA604A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66B385B9-BF67-4334-BFC3-CFD925FA604A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66B385B9-BF67-4334-BFC3-CFD925FA604A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEFEB5FC-97D1-4175-AD06-140BCFAE23AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEFEB5FC-97D1-4175-AD06-140BCFAE23AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEFEB5FC-97D1-4175-AD06-140BCFAE23AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEFEB5FC-97D1-4175-AD06-140BCFAE23AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
