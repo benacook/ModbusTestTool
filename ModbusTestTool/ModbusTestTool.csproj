@@ -57,6 +57,7 @@
     <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="Utils\ByteArray.cs" />
     <Compile Include="Utils\IntArray.cs" />
+    <Compile Include="Utils\Networking.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

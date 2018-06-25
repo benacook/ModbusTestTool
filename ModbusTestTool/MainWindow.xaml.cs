@@ -14,7 +14,6 @@ namespace ModbusTestTool
     {
         private byte[] ModbusResponse { get; set; }
         private DispatcherTimer dt = new DispatcherTimer();
-        private int value = 0;
 
         public MainWindow()
         {

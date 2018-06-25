@@ -11,9 +11,9 @@ namespace Modbus
 {
     internal class ModbusTcp
     {
-        ///////////////////////////////////////////////////////////////////////
+        //=====================================================================
         //DecVar
-        ///////////////////////////////////////////////////////////////////////
+        //=====================================================================
         public int Port { get; set; }
 
         public string IpAddr { get; set; }
@@ -60,9 +60,9 @@ namespace Modbus
             catch { }
         }
 
-        ///////////////////////////////////////////////////////////////////////
+        //=====================================================================
         //Write to Modbus
-        ///////////////////////////////////////////////////////////////////////
+        //=====================================================================
 
         /// <summary>
         /// Write to a device over Modbus
@@ -73,15 +73,15 @@ namespace Modbus
         public async Task<byte[]> WriteAsync(int register, int value,
             int modbusFunct)
         {
-            ///////////////////////////////////////////////////////////////////
+            //=================================================================
             //DecVar
-            ///////////////////////////////////////////////////////////////////
+            //=================================================================
             byte[] registerAddr = BitConverter.GetBytes(register);
             byte[] sendValue = BitConverter.GetBytes(value);
 
-            ///////////////////////////////////////////////////////////////////
+            //=================================================================
             //Construct data and send
-            ///////////////////////////////////////////////////////////////////
+            //=================================================================
             Byte[] data = { 0x00, transactionID, 0x00, 0x00, 0x00, 0x09,
                 Convert.ToByte(UnitID), Convert.ToByte(modbusFunct),
                 registerAddr[1], registerAddr[0], 0x00, 0x01, 0x02,
@@ -92,71 +92,21 @@ namespace Modbus
             byte sentID = transactionID;
             transactionID++;
 
-            ///////////////////////////////////////////////////////////////////
+            //=================================================================
             //Get the response
-            ///////////////////////////////////////////////////////////////////
+            //=================================================================
             byte[] response = new byte[32];
             int bytes = await stream.ReadAsync(response, 0, response.Length);
             stream.Close(100);
             return response;
         }
 
-        ///////////////////////////////////////////////////////////////////////
-        //Read Modbus
-        ///////////////////////////////////////////////////////////////////////
-
-        /// <summary>
-        /// Request data over Modbus and get the response asynchronously.
-        /// </summary>
-        /// <param name="register"></param>
-        /// <param name="quantity"></param>
-        /// <param name="modbusFunct"></param>
-        /// <returns></returns>
-        //public async Task<byte[]> ReadAsync(int register, int quantity,
-        //    int modbusFunct)
-        //{
-        //    ///////////////////////////////////////////////////////////////////
-        //    //DecVar
-        //    ///////////////////////////////////////////////////////////////////
-        //    byte[] registerAddr = BitConverter.GetBytes(register);
-        //    byte[] receiveQty = BitConverter.GetBytes(quantity);
-        //    TcpClient client = new TcpClient(IpAddr, Port);
-        //    NetworkStream stream = client.GetStream();
-
-        // /////////////////////////////////////////////////////////////////// //Construct data and
-        // send /////////////////////////////////////////////////////////////////// Byte[] data = {
-        // 0x00, transactionID, 0x00, 0x00, 0x00, 0x06, Convert.ToByte(UnitID),
-        // Convert.ToByte(modbusFunct), registerAddr[1], registerAddr[0], receiveQty[1],
-        // receiveQty[0] };
-
-        // stream.Write(data, 0, data.Length); byte sentID = transactionID; transactionID++;
-
-        //    ///////////////////////////////////////////////////////////////////
-        //    //Get the response
-        //    ///////////////////////////////////////////////////////////////////
-        //    var response = new Byte[256];
-        //    int bytes = await stream.ReadAsync(response, 0, response.Length);
-        //    if (response.Length > 0)
-        //    {
-        //        if (response[1] == sentID)
-        //        {
-        //            ReadResponse[0] = response[8];
-        //            for (int i = 1; i <= response[8]; i++)
-        //            {
-        //                ReadResponse[i] = response[8 + i];
-        //            }
-        //        }
-        //    }
-        //    stream.Close(100);
-        //    return ReadResponse;
-        //}
-
         public async Task<byte[]> WriteAsync(int startReg, int regQty,
             ObservableCollection<int> registerValues, int functionCode)
         {
-            ///////////////////////////////////////////////////////////////////
+            //=================================================================
             //DecVar
-            ///////////////////////////////////////////////////////////////////
+            //=================================================================
             byte[] registerAddr = BitConverter.GetBytes(startReg);
             byte[,] sendValues = new byte[regQty, 2];
             byte[] qty = BitConverter.GetBytes(regQty);
@@ -170,9 +120,9 @@ namespace Modbus
                 sendValues[i, 1] = values[1];
             }
 
-            ///////////////////////////////////////////////////////////////////
+            //=================================================================
             //Construct data and send
-            ///////////////////////////////////////////////////////////////////
+            //=================================================================
             byte[] data1 = { 0x00, transactionID, 0x00, 0x00, byteQtyTotal[1],
                 byteQtyTotal[0],
                 Convert.ToByte(UnitID), Convert.ToByte(functionCode),
@@ -195,28 +145,28 @@ namespace Modbus
             byte sentID = transactionID;
             transactionID++;
 
-            ///////////////////////////////////////////////////////////////////
+            //=================================================================
             //Get the response
-            ///////////////////////////////////////////////////////////////////
+            //=================================================================
             byte[] response = new byte[64];
             int bytes = await stream.ReadAsync(response, 0, response.Length);
             stream.Close(100);
             return response;
         }
 
-        public async Task<ObservableCollection<int>> ReadAsync(int startReg, int regQty,
-            int functionCode)
+        public async Task<ObservableCollection<int>> ReadAsync(int startReg,
+            int regQty, int functionCode)
         {
-            ///////////////////////////////////////////////////////////////////
+            //=================================================================
             //DecVar
-            ///////////////////////////////////////////////////////////////////
+            //=================================================================
             byte[] registerAddr = BitConverter.GetBytes(startReg);
             byte[] qty = BitConverter.GetBytes(regQty);
             byte[] byteQtyTotal = BitConverter.GetBytes((regQty * 2) + 7);
 
-            ///////////////////////////////////////////////////////////////////
+            //=================================================================
             //Construct data and send
-            ///////////////////////////////////////////////////////////////////
+            //=================================================================
             byte[] data = { 0x00, transactionID, 0x00, 0x00, byteQtyTotal[1],
                 byteQtyTotal[0],
                 Convert.ToByte(UnitID), Convert.ToByte(functionCode),
@@ -227,15 +177,16 @@ namespace Modbus
             stream.Write(data, 0, data.Length);
             byte sentID = transactionID++;
 
-            ///////////////////////////////////////////////////////////////////
+            //=================================================================
             //Get the response
-            ///////////////////////////////////////////////////////////////////
+            //=================================================================
             byte[] response = new byte[64];
             int bytes = await stream.ReadAsync(response, 0, response.Length);
             stream.Close(100);
 
             var responseBytes = ByteArray.ToIntArray(response);
-            var responseCollection = new ObservableCollection<int>(responseBytes);
+            var responseCollection =
+                new ObservableCollection<int>(responseBytes);
             return responseCollection;
         }
     }

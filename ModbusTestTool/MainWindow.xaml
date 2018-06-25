@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Modbus TCP Test Tool" Height="450" Width="728.2">
-    <Grid Background="#FF171C34">
+        Title="Modbus TCP Test Tool" Height="450" Width="728.2" WindowStyle="ToolWindow">
+    <Grid Background="#FF2E3342">
         <Grid.RowDefinitions>
             <RowDefinition Height="105*" />
             <RowDefinition Height="106*" />
@@ -24,9 +24,9 @@
         <Button x:Name="SendBtn" Command="{Binding Write}" Content="Write" HorizontalAlignment="Left" Margin="242,88.4,0,0" VerticalAlignment="Top" Width="75" Background="#FF767676" BorderBrush="{x:Null}" Foreground="White" Grid.Row="1" />
         <Label Content="Ip Adddress" HorizontalAlignment="Left" Margin="82,24,0,0" VerticalAlignment="Top" Foreground="White" />
         <TextBox x:Name="IpAddr" Text="{Binding IpAddr, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="160,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="#7FBABABA" Foreground="White" />
-        <CheckBox x:Name="RunCyc" Content="Write Cyclically" HorizontalAlignment="Left" Margin="242,129.4,0,0" Grid.Row="1" VerticalAlignment="Top" Width="105" Foreground="White" />
-        <Button x:Name="SendBtn_Copy" Command="{Binding Read}" Content="Read" HorizontalAlignment="Left" Margin="42,88.4,0,0" VerticalAlignment="Top" Width="75" Background="#FF767676" BorderBrush="{x:Null}" Foreground="White" Grid.Row="1" Grid.Column="1" />
-        <CheckBox x:Name="RunCyc_Copy" Content="Read Cyclically" HorizontalAlignment="Left" Margin="42,129.4,0,0" Grid.Row="1" VerticalAlignment="Top" Width="105" Foreground="White" Grid.Column="1" />
+        <CheckBox x:Name="RunCyc" IsChecked="{Binding WriteCyclicChecked, Mode=TwoWay}" Command="{Binding WriteCyclically}" Content="Write Cyclically" HorizontalAlignment="Left" Margin="242,129.4,0,0" Grid.Row="1" VerticalAlignment="Top" Width="105" Foreground="White" />
+        <Button x:Name="SendBtn_Copy" Command="{Binding Read}" Content="Read" HorizontalAlignment="Left" Margin="42,88.4,0,0" VerticalAlignment="Top" Width="75" Background="#FF767676" BorderBrush="{x:Null}" Foreground="White" Grid.Row="1" Grid.Column="1" BorderThickness="1" />
+        <CheckBox x:Name="RunCyc_Copy" IsChecked="{Binding ReadCyclicChecked, Mode=TwoWay}" Command="{Binding ReadCyclically}" Content="Read Cyclically" HorizontalAlignment="Left" Margin="42,129.4,0,0" Grid.Row="1" VerticalAlignment="Top" Width="105" Foreground="White" Grid.Column="1" />
         <Label Content="Values" HorizontalAlignment="Left" Margin="338,123,0,0" VerticalAlignment="Top" Foreground="White" Grid.ColumnSpan="2" />
         <TextBox x:Name="Value2" HorizontalAlignment="Left" Height="23" Margin="221,162,0,0" TextWrapping="Wrap" Text="{Binding RegisterValues[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="56" Background="#7FBABABA" Foreground="White" />
         <Label Content="2" HorizontalAlignment="Left" Margin="202,162,0,0" VerticalAlignment="Top" Foreground="White" Width="18" />
