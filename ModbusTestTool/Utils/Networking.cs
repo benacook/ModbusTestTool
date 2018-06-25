@@ -82,7 +82,7 @@ namespace Utils
         }
 
         //=====================================================================
-        //TCP network related commands
+        //Is Ip Address Valid
         //=====================================================================
 
         /// <summary>
@@ -120,6 +120,10 @@ namespace Utils
             }
             return true;
         }
+
+        //=====================================================================
+        //Is Ip Address in subnet range
+        //=====================================================================
 
         /// <summary>
         /// Checks if the IP address of the TM5 is in the subnet of the computer.
@@ -203,6 +207,10 @@ namespace Utils
             else { return false; }
         }
 
+        //=====================================================================
+        //Can ping IP Address
+        //=====================================================================
+
         /// <summary>
         /// Checks is the IP address of the TM5 is accessible.
         /// </summary>
@@ -244,6 +252,10 @@ namespace Utils
             }
             catch { return false; }
         }
+
+        //=====================================================================
+        //Get IP Address of Host PC
+        //=====================================================================
 
         /// <summary>
         /// Gets the IP addresses of the computer.
