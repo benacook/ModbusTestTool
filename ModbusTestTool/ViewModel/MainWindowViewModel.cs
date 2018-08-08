@@ -321,7 +321,7 @@ namespace ViewModels
                 {
                     Response = ex.Message;
                     StopCyclicWrite();
-                    MessageBox.Show("0x" + ex.HResult.ToString("X") + ": " +
+                    MessageBox.Show($"0x{ex.HResult.ToString("X")}: " +
                         ex.Message, "Error", MessageBoxButton.OK,
                         MessageBoxImage.Error);
                 }
