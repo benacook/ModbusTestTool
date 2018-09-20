@@ -1,3 +1,3 @@
 # ModbusTestTool
 
-[[https://github.com/benacook/ModbusTestTool/ReadMeRecources/ModbusTestTool.png|alt=WindowImage]]
+![picture](ReadMeRecources/ModbusTestTool.png)
