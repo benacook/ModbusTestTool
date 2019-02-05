@@ -309,7 +309,7 @@ namespace ViewModels
                 try
                 {
                     ModbusTcp ModbusDevice =
-                        new ModbusTcp(502, IpAddr, NodeId);
+                        new ModbusTcp(503, IpAddr, NodeId);
 
                     byte[] ModbusResponse = await Task.Run(() =>
                     ModbusDevice.WriteAsync(StartReg, RegQty, RegisterValues,
@@ -336,7 +336,7 @@ namespace ViewModels
                 try
                 {
                     ModbusTcp ModbusDevice =
-                        new ModbusTcp(502, IpAddr, NodeId);
+                        new ModbusTcp(503, IpAddr, NodeId);
 
                     RegisterValues = await Task.Run(() =>
                     ModbusDevice.ReadAsync(StartReg, RegQty, FunctionCode));

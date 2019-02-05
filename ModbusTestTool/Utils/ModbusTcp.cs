@@ -30,7 +30,7 @@ namespace Modbus
             Port = port;
             IpAddr = ipAddr;
             UnitID = 1;
-            client = new TcpClient(IpAddr, 502);
+            client = new TcpClient(IpAddr, port);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Modbus
             Port = port;
             IpAddr = ipAddr;
             UnitID = unitID;
-            client = new TcpClient(IpAddr, 502);
+            client = new TcpClient(IpAddr, port);
         }
 
         ~ModbusTcp()
