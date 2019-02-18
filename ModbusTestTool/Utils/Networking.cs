@@ -30,9 +30,8 @@ namespace Utils
             if (!SubnetCheck(ipAddr))
             {
                 MessageBox.Show("Device IP not in " +
-                    "subnet range of this PC", "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-                return false;
+                    "subnet range of this PC", "Warning", MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
             }
 
             if (!PingCheck(ipAddr))

@@ -160,7 +160,7 @@ namespace Modbus
             //=================================================================
             byte[] registerAddr = BitConverter.GetBytes(startReg);
             byte[] qty = BitConverter.GetBytes(regQty);
-            byte[] byteQtyTotal = BitConverter.GetBytes((regQty * 2) + 7);
+            byte[] byteQtyTotal = BitConverter.GetBytes(6);//(regQty * 2) + 7);
 
             //=================================================================
             //Construct data and send
